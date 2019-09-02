@@ -4,11 +4,11 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"postcss:watch": "postcss educa/static/css/index.pcss -o educa/static/css/index.css --env development -w",
-		"postcss:build": "postcss educa/static/css/index.pcss -o educa/static/css/index.css --env production",
-		"parcel:watch": "parcel watch educa/static/js/index.js -d educa/static/dist --public-url ./",
-		"parcel:build": "parcel build educa/static/js/index.js -d educa/static/dist --public-url ./",
-		"clean": "rm -rf educa/static/dist .cache",
+		"postcss:watch": "postcss courses/static/css/index.pcss -o courses/static/css/index.css --env development -w",
+		"postcss:build": "postcss courses/static/css/index.pcss -o courses/static/css/index.css --env production",
+		"parcel:watch": "parcel watch courses/static/js/index.js -d courses/static/dist --public-url ./",
+		"parcel:build": "parcel build courses/static/js/index.js -d courses/static/dist --public-url ./",
+		"clean": "rm -rf courses/static/dist .cache",
 		"build": "npm-run-all -s clean postcss:build parcel:build",
 		"start": "npm-run-all -s clean -p postcss:watch parcel:watch"
 	},

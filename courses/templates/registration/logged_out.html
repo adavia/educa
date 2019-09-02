@@ -1,0 +1,11 @@
+{% extends "registration/base.html" %}
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+    <div class="h-screen px-3 flex flex-col items-center justify-center">
+        <h1 class="text-4xl font-bold mb-5">You have been logged out from the site!</h1>
+        <p class="inline-block align-baseline text-gray-700">Login again? 
+            <a class="text-indigo-600 no-underline" href="{% url 'login' %}">Login</a>
+        </p>
+    </div>
+{% endblock content %}

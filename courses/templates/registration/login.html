@@ -1,0 +1,43 @@
+{% extends "registration/base.html" %}
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+    <div class="h-screen px-3 flex flex-col 
+        items-center justify-center">
+        <h1 class="text-4xl font-bold mb-5">Login now!</h1>
+        
+        {% for error in form.non_field_errors %}
+            <div class="w-full max-w-sm bg-red-500 
+                text-white text-sm font-bold px-4 py-3 mb-6" 
+                role="alert">
+                <p>{{error}}</p>
+            </div>
+        {% endfor %}
+        
+        <form class="w-full max-w-sm" method="POST" novalidate>
+            {% csrf_token %}
+
+            <div class="w-full mb-6">
+                {% include "common/form_fields.html" with 
+                    field=form.username 
+                    type="input" 
+                    label="Your username" 
+                %}
+            </div>
+            <div class="w-full mb-6">
+                {% include "common/form_fields.html" with 
+                    field=form.password 
+                    type="password" 
+                    label="Your password" 
+                %}
+            </div>
+           
+            <button class="shadow bg-purple-500 hover:bg-purple-400 
+                focus:shadow-outline focus:outline-none text-white 
+                font-bold py-2 px-4 rounded" 
+                type="submit">
+                Login
+            </button>
+        </form>
+    </div>
+{% endblock content %}
