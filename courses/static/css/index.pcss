@@ -4,4 +4,22 @@
 
 @tailwind components;
 
+.btn {
+    @apply shadow py-2 px-4 rounded;
+}
+
+.btn-purple {
+    @apply bg-purple-500 text-white;
+}
+
+.btn-purple:hover {
+    @apply bg-purple-400 outline-none;
+}
+
 @tailwind utilities;
+
+@responsive {
+    .blue-green {
+        background-image: linear-gradient(to right, theme('colors.blue.600'), theme('colors.blue.900'));
+    }
+}

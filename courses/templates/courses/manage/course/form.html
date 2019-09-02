@@ -1,0 +1,59 @@
+{% extends "courses/base.html" %}
+
+{% block title %}
+    {% if object %}
+        Edit course "{{ object.title }}"
+    {% else %}
+        Create a new course
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="border-b border-gray-400 mb-4">
+        <h1 class="text-4xl text-gray-500 font-bold leading-tight pb-4">
+            {% if object %}
+                Edit course {{ object.title }}
+            {% else %}
+                Create a new course
+            {% endif %}
+        </h1>
+    </div>
+
+    <form class="w-full max-w-sm" method="POST" novalidate>
+        {% csrf_token %}
+
+        <div class="w-full mb-6">
+            {% include "common/form_fields.html" with 
+                field=form.subject 
+                type="select" 
+                label="Select a subject" 
+                options=form.subject.field.choices
+            %}
+        </div>
+        <div class="w-full mb-6">
+            {% include "common/form_fields.html" with 
+                field=form.title 
+                type="input" 
+                label="Title" 
+            %}
+        </div>
+        <div class="w-full mb-6">
+            {% include "common/form_fields.html" with 
+                field=form.slug 
+                type="input" 
+                label="Slug" 
+            %}
+        </div>
+        <div class="w-full mb-6">
+            {% include "common/form_fields.html" with 
+                field=form.overview 
+                type="text" 
+                label="Breaf overview" 
+            %}
+        </div>
+        
+        <button class="btn btn-purple" type="submit">
+            Save course
+        </button>
+    </form>
+{% endblock content %}
