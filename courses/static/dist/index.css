@@ -633,22 +633,47 @@ video {
   }
 }
 
-.btn {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+.btn-sm {
+  line-height: 1.25;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.btn-md {
+  line-height: 1.25;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #2b6cb0;
+  border-width: 1px;
+  border-color: #4299e1;
   border-radius: 0.25rem;
 }
 
-.btn-purple {
-  background-color: #9f7aea;
+.btn-outline:hover {
+  color: #fff;
+  background-color: #4299e1;
+  border-color: transparent;
+}
+
+.btn-primary {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 0.25rem;
+  background-color: #4299e1;
   color: #fff;
 }
 
-.btn-purple:hover {
-  background-color: #b794f4;
+.btn-primary:hover {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 0.25rem;
+  background-color: #63b3ed;
   outline: 0;
 }
 

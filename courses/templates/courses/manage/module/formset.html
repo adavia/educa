@@ -1,0 +1,52 @@
+{% extends "courses/base.html" %}
+
+{% block title %}
+    Edit {{ course.title }}
+{% endblock %}
+
+{% block content %}
+    <main class="container mx-auto px-6 py-10">
+        <div class="border-b border-gray-400 mb-4">
+            <h1 class="text-4xl text-gray-500 font-bold leading-tight pb-1">
+                Edit course {{ course.title }}
+            </h1>
+            <h2 class="text-2xl text-gray-700 leading-tight pb-4">
+                Course modules
+            </h2>
+        </div>
+        
+        <form class="w-full max-w-sm" method="POST" novalidate>
+            {% csrf_token %}
+            
+            {% for field in formset %}
+                <div class="w-full mb-6">
+                    {% include "common/form_fields.html" with 
+                        field=field.title 
+                        type="input" 
+                        label="Module title" 
+                    %}
+                </div>
+                <div class="w-full mb-6">
+                    {% include "common/form_fields.html" with 
+                        field=field.description 
+                        type="text" 
+                        label="Description" 
+                    %}
+                </div>
+                <div class="w-full mb-6">
+                    {% include "common/form_fields.html" with 
+                        field=field.DELETE 
+                        type="check" 
+                        label="Delete this item" 
+                    %} 
+                </div>
+            {% endfor %}
+
+            {{ formset.management_form }}
+
+            <button class="btn-md btn-primary" type="submit">
+                Save modules
+            </button>
+        </form>
+    </main>
+{% endblock content %}

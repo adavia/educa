@@ -1,0 +1,98 @@
+{% extends "courses/base.html" %}
+{% load course %}
+
+{% block title %}
+    Module {{ module.order|add:1 }}: {{ module.title }}
+{% endblock %}
+
+{% block subnav %}
+    {% with course=module.course %}
+        <div class="bg-gray-800 p-3">
+            <h1 class="text-3xl text-gray-400 text-center">
+                Course "{{ course.title }}"
+            </h1>
+        </div>
+    {% endwith %}
+{% endblock subnav %}
+
+{% block sidebar %}
+    <nav class="w-full md:w-1/5 bg-gray-900 md:h-screen">
+        <ul class="py-6">
+            {% with course=module.course %}
+                {% for m in course.modules.all %}
+                    <li data-id="{{ m.id }}" class="{% if m == module %} bg-gray-800 {% endif %} 
+                        text-gray-400 hover:bg-gray-800">
+                        <a class="block px-6 py-3" href="{% url 'module_content_list' m.id %}">
+                            <span class="block uppercase text-gray-600">
+                                Module {{ m.order|add:1 }}
+                            </span>
+                            <span class="text-sm">{{ m.title }}</span>
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>No modules yet.</li>
+                {% endfor %}
+            {% endwith %}
+        </ul>
+    </nav>
+{% endblock sidebar %}
+
+{% block content %}
+    {% with course=module.course %}
+        <main class="container md:w-4/5 mx-auto p-6">
+            <h2 class="text-3xl">Module {{ module.order|add:1 }}: {{ module.title }}</h2>
+            <h3 class="text-2xl mb-3">Module contents:</h3>
+
+            <div class="border rounded">
+                {% for content in module.contents.all %}
+                    <div data-id="{{ content.id }}" class="flex items-center border-b last:border-b-0 px-4 py-3">
+                        {% with item=content.item %}
+                            <p>{{ item }} ({{ item|model_name }})</p>
+                            <div class="ml-auto">
+                                <a href="{% url 'module_content_update' module.id item|model_name item.id %}"
+                                    class="btn-sm btn-outline">
+                                    Edit
+                                </a>
+                                <form class="inline-block" 
+                                    action="{% url 'module_content_delete' content.id %}" 
+                                    method="POST">
+                                    <button type="submit" class="btn-sm btn-outline ml-2">Remove</button>
+                                    {% csrf_token %}
+                                </form>
+                            </div>
+                        {% endwith %}
+                    </div>
+                {% empty %}
+                    <p class="text-xl px-4 py-3">This module has no contents yet.</p>
+                {% endfor %}
+            </div>
+            <h3 class="text-lg text-gray-600 mt-5">Add new content:</h3>
+            <ul class="flex justify-between w-full max-w-xs mt-5">
+                <li>
+                    <a href="{% url 'module_content_create' module.id 'text' %}"
+                        class="btn-sm btn-primary">
+                        Text
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'module_content_create' module.id 'image' %}"
+                        class="btn-sm btn-primary">
+                        Image
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'module_content_create' module.id 'video' %}"
+                        class="btn-sm btn-primary">
+                        Video
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'module_content_create' module.id 'file' %}"
+                        class="btn-sm btn-primary">
+                        File
+                    </a>
+                </li>
+            </ul>
+        </main>
+    {% endwith %}
+{% endblock content %}

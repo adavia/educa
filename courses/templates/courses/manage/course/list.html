@@ -2,9 +2,9 @@
 {% block title %}My courses{% endblock %}
 
 {% block content %}
-    <section>
+    <main class="container mx-auto px-6 py-10">
         <div class="mb-6">
-            <a href="{% url 'course_create' %}" class="btn btn-purple">Create new course</a>
+            <a href="{% url 'course_create' %}" class="btn-md btn-primary">Create new course</a>
         </div>
         <div class="mb-4">
             {% for course in object_list %}
@@ -16,6 +16,18 @@
                                 text-gray-800 py-1 px-4 rounded-l">
                             Edit
                         </a>
+                        <a href="{% url 'course_module_update' course.id %}" 
+                            class="bg-gray-300 hover:bg-gray-400 
+                                text-gray-800 py-1 px-4">
+                            Edit modules
+                        </a>
+                        {% if course.modules.count > 0 %}
+                            <a href="{% url 'module_content_list' course.modules.first.id %}"
+                                class="bg-gray-300 hover:bg-gray-400 
+                                    text-gray-800 py-1 px-4">
+                                Manage contents
+                            </a>
+                        {% endif %}
                         <a href="{% url 'course_delete' course.id %}" 
                             class="bg-gray-300 hover:bg-gray-400 
                                 text-gray-800 py-1 px-4 rounded-r">
@@ -27,5 +39,5 @@
                 <p class="text-4xl leading-tight mb-6">You haven't created any courses yet.</p>
             {% endfor %}
         </div>
-    </section>
+    </main>
 {% endblock content %}

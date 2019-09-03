@@ -7,9 +7,11 @@
     </head>
     <body class="font-body">
         {% include "common/nav_bar.html" %}
-        <main class="container mx-auto px-6 py-10">
+        {% block subnav %}{% endblock %}
+        <div class="flex flex-wrap">
+            {% block sidebar %}{% endblock %}
             {% block content %}{% endblock %}
-        </main>
+        </div>
         <script src="{% static 'dist/index.js' %}"></script>
     </body>
 </html>
