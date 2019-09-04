@@ -1,0 +1,46 @@
+{% extends "courses/base.html" %}
+
+{% block title %}
+    Sign up
+{% endblock %}
+
+{% block content %}
+    <main class="container mx-auto px-6 py-10">
+        <div class="mx-auto max-w-lg">
+            <h1 class="text-4xl font-bold mb-5">
+                Enter your details to create an account
+            </h1>
+            
+            <form class="w-full max-w-sm" method="POST" novalidate>
+                {% csrf_token %}
+
+                <div class="w-full mb-6">
+                    {% include "common/form_fields.html" with 
+                        field=form.username 
+                        type="input" 
+                        label="Your username" 
+                    %}
+                </div>
+                <div class="w-full mb-6">
+                    {% include "common/form_fields.html" with 
+                        field=form.password1
+                        type="password" 
+                        label="Your password" 
+                    %}
+                </div>
+
+                <div class="w-full mb-6">
+                    {% include "common/form_fields.html" with 
+                        field=form.password2
+                        type="password" 
+                        label="Confirm your password" 
+                    %}
+                </div>
+            
+                <button class="btn-md btn-primary" type="submit">
+                    Create my account
+                </button>
+            </form>
+        </div>
+    </main>
+{% endblock content %}

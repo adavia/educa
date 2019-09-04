@@ -1,0 +1,68 @@
+{% extends "courses/base.html" %}
+
+{% block title %}
+    {% if subject %}
+        {{ subject.title }} courses
+    {% else %}
+        All courses
+    {% endif %}
+{% endblock %}
+
+{% block subnav %}
+    <div class="bg-gray-800 p-3">
+        <h1 class="text-3xl text-gray-400 text-center">
+            {% if subject %}
+                {{ subject.title }} courses
+            {% else %}
+                All courses
+            {% endif %}
+        </h1>
+    </div>
+{% endblock subnav %}
+
+{% block sidebar %}
+    <nav class="w-full md:w-1/5 bg-gray-900 md:h-screen">
+        <ul class="py-6">
+            <li class="{% if not subject %} bg-gray-800 {% endif %} 
+                text-gray-400 hover:bg-gray-800">
+                <a class="block px-6 py-3" href="{% url 'course_list' %}">
+                    <span class="text-sm">All courses</span>
+                </a>
+            </li>
+            {% for s in subjects %}
+                <li class="{% if subject == s %} bg-gray-800 {% endif %} 
+                    text-gray-400 hover:bg-gray-800">
+                    <a class="block px-6 py-3" href="{% url 'course_list_subject' s.slug %}">
+                        <span class="block uppercase text-gray-600">
+                            {{ s.title }}
+                        </span>
+                        <span class="text-sm">{{ s.total_courses }} courses</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endblock sidebar %}
+
+{% block content %}
+    <main class="container md:w-4/5 mx-auto p-6">
+        {% for course in courses %}
+            {% with subject=course.subject %}
+                <div class="border-b last:border-b-0 pb-6 mb-4">
+                    <h2 class="text-3xl">
+                        <a href="{% url 'course_detail' course.slug %}">
+                            {{ course.title }}
+                        </a>
+                    </h2>
+                    <p>
+                        <a class="text-gray-600" href="{% url 'course_list_subject' subject.slug %}">
+                            {{ subject }}
+                        </a>
+                        <span class="text-xl mx-2">{{ course.total_modules }}</span> modules.
+                        Instructor: {{ course.owner.username }}
+                    </p>
+                </div>
+            {% endwith %}
+        {% endfor %}
+    </main>
+{% endblock content %}
