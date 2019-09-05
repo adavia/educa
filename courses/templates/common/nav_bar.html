@@ -19,21 +19,21 @@
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-md lg:flex-grow">
-            <a href="#responsive-header" class="block mt-4 lg:inline-block 
+            <a href="{% url 'manage_course_list' %}" class="block mt-4 lg:inline-block 
                 lg:mt-0 text-blue-200 hover:text-white mr-4">
-                Docs
+                My courses
             </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block 
+            <a href="{% url 'student_course_list' %}" class="block mt-4 lg:inline-block 
                 lg:mt-0 text-blue-200 hover:text-white mr-4">
-                Examples
-            </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block 
-                lg:mt-0 text-blue-200 hover:text-white">
-                Blog
+                Enrolled courses
             </a>
         </div>
         <div class="text-blue-200">
-            Hey there my friend
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Sign out, {{user.username}}</a>
+            {% else %}
+                <a href="{% url 'login' %}">Sign in</a>
+            {% endif %}
         </div>
     </div>
 </nav>

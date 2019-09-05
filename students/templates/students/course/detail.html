@@ -1,0 +1,49 @@
+{% extends "courses/base.html" %}
+{% load cache %}
+
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+
+{% block subnav %}
+    {% with course=module.course %}
+        <div class="bg-gray-800 p-3">
+            <h1 class="text-3xl text-gray-400 text-center">
+                {{ module.title }}
+            </h1>
+        </div>
+    {% endwith %}
+{% endblock subnav %}
+
+{% block sidebar %}
+    <nav class="w-full md:w-1/5 bg-gray-900 md:h-screen">
+        <ul class="py-6">
+            {% for m in object.modules.all %}
+                <li data-id="{{ m.id }}" class="{% if m == module %} bg-gray-800 {% endif %} 
+                    text-gray-400 hover:bg-gray-800">
+                    <a class="block px-6 py-3" href="{% url 'student_course_detail_module' object.id m.id %}">
+                        <span class="block uppercase text-gray-600">
+                            Module {{ m.order|add:1 }}
+                        </span>
+                        <span class="text-sm">{{ m.title }}</span>
+                    </a>
+                </li>
+            {% empty %}
+                <li>No modules yet.</li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endblock sidebar %}
+
+{% block content %}
+    <main class="container md:w-4/5 mx-auto p-6">
+        {% cache 600 module_contents module %}
+            {% for content in module.contents.all %}
+                {% with item=content.item %}
+                    <h2 class="text-3xl">{{ item.title }}</h2>
+                    {{ item.render }}
+                {% endwith %}
+            {% endfor %}
+        {% endcache %}
+    </main>
+{% endblock content %}

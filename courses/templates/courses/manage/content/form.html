@@ -32,6 +32,13 @@
             </div>
             <div class="w-full mb-6">
                 {% include "common/form_fields.html" with 
+                    field=form.content 
+                    type="text" 
+                    label="Add some content for this module" 
+                %}
+            </div>
+            <div class="w-full mb-6">
+                {% include "common/form_fields.html" with 
                     field=form.file 
                     type="file" 
                 %}
