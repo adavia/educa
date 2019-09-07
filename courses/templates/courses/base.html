@@ -5,10 +5,10 @@
         {% include "common/head.html" %}
         <title>{% block title %} Educa {% endblock %}</title>
     </head>
-    <body class="font-body">
+    <body class="font-body overflow-y-hidden">
         {% include "common/nav_bar.html" %}
         {% block subnav %}{% endblock %}
-        <div class="flex flex-wrap">
+        <div class="flex flex-no-wrap justify-between h-screen">
             {% block sidebar %}{% endblock %}
             {% block content %}{% endblock %}
         </div>

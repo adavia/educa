@@ -8,20 +8,8 @@
     {% endif %}
 {% endblock %}
 
-{% block subnav %}
-    <div class="bg-gray-800 p-3">
-        <h1 class="text-3xl text-gray-400 text-center">
-            {% if subject %}
-                {{ subject.title }} courses
-            {% else %}
-                All courses
-            {% endif %}
-        </h1>
-    </div>
-{% endblock subnav %}
-
 {% block sidebar %}
-    <nav class="w-full md:w-1/5 bg-gray-900 md:h-screen">
+    <nav class="w-full md:w-1/5 z-10 bg-gray-900">
         <ul class="py-6">
             <li class="{% if not subject %} bg-gray-800 {% endif %} 
                 text-gray-400 hover:bg-gray-800">
@@ -45,22 +33,30 @@
 {% endblock sidebar %}
 
 {% block content %}
-    <main class="container md:w-4/5 mx-auto p-6">
+    <main class="container md:w-4/5 mx-auto overflow-y-auto p-6">
         {% for course in courses %}
             {% with subject=course.subject %}
-                <div class="border-b last:border-b-0 pb-6 mb-4">
-                    <h2 class="text-3xl">
-                        <a href="{% url 'course_detail' course.slug %}">
-                            {{ course.title }}
-                        </a>
-                    </h2>
-                    <p>
-                        <a class="text-gray-600" href="{% url 'course_list_subject' subject.slug %}">
-                            {{ subject }}
-                        </a>
-                        <span class="text-xl mx-2">{{ course.total_modules }}</span> modules.
-                        Instructor: {{ course.owner.username }}
-                    </p>
+                <div class="border-b last:border-b-0 pb-4 mb-6">  
+                    <div class="flex">
+                        <div class="w-1/5">
+                            <img src="{{course.thumb_url}}" class="object-cover h-40 w-full">
+                        </div>
+                        <div class="w-3/5 pl-6">
+                            <p class="text-gray-700">{{subject}}</p>
+                            <h2 class="text-3xl leading-tight">
+                                <a href="{% url 'course_detail' course.slug %}">
+                                    {{ course.title }}
+                                </a>
+                            </h2>
+                            <p>
+                                <a class="text-gray-600" href="{% url 'course_list_subject' subject.slug %}">
+                                    By <span class="text-blue-600">{{ course.owner.username }}</span>
+                                </a>
+                                <span class="text-xl mx-2">{{ course.total_modules }}</span> modules.
+                            </p>
+                        </div>
+                    </div>
+                    <p class="mt-4">{{course.overview}}</p>
                 </div>
             {% endwith %}
         {% endfor %}

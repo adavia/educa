@@ -16837,6 +16837,10 @@ video {
   background-image: linear-gradient(to right, #3182ce, #2a4365);
 }
 
+.sidebar-height {
+  height: calc(100vh - 3rem);
+}
+
 @media (min-width: 640px){
   .sm\:sr-only{
     position: absolute;

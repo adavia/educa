@@ -85,10 +85,15 @@ class Course(models.Model):
 
         return True
 
-    # @property
-    # def image_url(self):
-    #     if self.image and hasattr(self.image, 'url'):
-    #         return self.image.url
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+
+    @property
+    def thumb_url(self):
+        if self.thumbnail and hasattr(self.thumbnail, 'url'):
+            return self.thumbnail.url
 
 class Module(models.Model):
     course = models.ForeignKey(Course,
